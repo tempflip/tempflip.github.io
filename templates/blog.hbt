@@ -1,0 +1,18 @@
+<html>
+<head>
+
+	<title>Blog: {{ title }}</title>
+
+	<style>
+		div {
+			background : red;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		{{{ contents }}}
+	</div>
+</body>
+</html>

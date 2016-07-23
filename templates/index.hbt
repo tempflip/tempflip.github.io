@@ -1,0 +1,34 @@
+<html>
+<head>
+
+	<title>{{ title }}</title>
+
+	<style>
+		div {
+			background : pink;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		{{{ contents }}}
+	</div>
+
+	<h1>The blog!</h1>
+
+	<article>
+		<ul>
+			{{#each collections.posts}}
+				<h3>{{ this.title}} -- {{ this.date }}</h3>
+				<article>
+					{{ this.lead }}
+					<br/>
+					<a href="{{ this.path }}/index.html">Read</a>
+				</article>
+
+			{{/each}}
+		</ul>
+	</article>
+</body>
+</html>
