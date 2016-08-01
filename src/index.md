@@ -1,4 +1,4 @@
 ---
-title: Hobbi Gepi Tanulas
+title: Hobbi Gépi Tanulás
 template: index.hbt
 ---

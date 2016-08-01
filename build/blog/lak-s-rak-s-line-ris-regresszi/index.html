@@ -1,14 +1,22 @@
 <!doctype html>
 <html>
 <head>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 	<meta charset="utf-8">
 	
-	<title>Blog: Lakásárak és lineáris regresszió</title>
+	<title>Hobbi Gépi Tanulás: Lakásárak és lineáris regresszió</title>
 
 	<style>
 		div {
-			background : red;
-			color: white;
 		}
 	</style>
 </head>
@@ -30,7 +38,7 @@
  13. LSTAT % lower status of the population
  14. MEDV Median value of owner-occupied homes in $1000&#39;s
 </code></pre><p>Azt felt&#233;telezem, hogy egy adott ingatlan n&#233;h&#225;ny (vagy ak&#225;r az &#246;sszes) tulajdons&#225;g&#225;t ismerve viszonylag j&#243; pontoss&#225;ggal el&#337;rejelezhet&#337; annak az &#225;ra. Az els&#337;re nem t&#369;nik butas&#225;gnak, hiszen egy lak&#225;s &#225;r&#225;t jellemz&#337;en olyan t&#233;nyez&#337;k befoly&#225;solj&#225;k, mint a b&#369;n&#246;z&#233;s m&#233;rt&#233;ke az adott ker&#252;letben, vagy &#233;ppen a v&#225;ros k&#246;zpontj&#225;nak k&#246;zels&#233;ge.</p>
-<p>(bl2_1)</p>
+<p><img src="https://tempflip.github.io/img/bl2_1.png" alt="bl2_1"></p>
 <p>Egy plotot nyomtatva a b&#369;n&#246;z&#233;s (CRIM, x tengely) &#233;s a lak&#225;s&#225;rak (MEDV, x tengely) &#246;sszef&#252;gg&#233;s&#233;r&#337;l, l&#225;that&#243;, hogy val&#243;ban van <em>valamif&#233;le</em> &#246;sszef&#252;gg&#233;s. Ha ismern&#233;nk azt a f&#252;ggv&#233;nyt, aminek megaddva v&#225;ltoz&#243;nak a b&#369;n&#246;z&#233;s m&#233;rt&#233;k&#233;t megkapn&#225;nk a hozz&#225; tartoz&#243; pontot a fent rajzolt vonalon, akkor meg is lenne a <em>betan&#237;tott g&#233;pi tanul&#225;s modell&#252;nk</em>.</p>
 <h1 id="tan-t-s">Tan&#237;t&#225;s</h1>
 <p>Ez egy klasszikus [fel&#252;gyelt tanul&#225;si probl&#233;ma] (<a href="https://en.wikipedia.org/wiki/Supervised_learning">https://en.wikipedia.org/wiki/Supervised_learning</a>)</p>
@@ -48,6 +56,7 @@
 <p><code>a</code> a tengelyt&#337;l val&#243; t&#225;vols&#225;g, m&#237;g <code>b</code> az egyenes d&#337;l&#233;se. Amikor egy tanul&#243; algoritmusnak (p&#233;ld&#225;ul a line&#225;ris regresszi&#243;nak) megadjuk a tanul&#243;-pontokat, akkor a sz&#225;m&#237;t&#243;g&#233;p addig tologatja az <code>a</code> &#233;s <code>b</code> pontokat, am&#237;g a hiba m&#233;rt&#233;ke a lehet&#337; legkisebb lesz.</p>
 <h2 id="a-hiba">A hiba</h2>
 <p>A kapott egyenes term&#233;szetesen nem fog t&#246;k&#233;letesen illeszkedni a pontjainkra (legal&#225;bbis nem val&#243;sz&#237;n&#369;), ez&#233;rt bizonyos hib&#225;val sz&#225;molni kell. A hiba m&#233;rt&#233;k&#233;t t&#246;bbf&#233;lek&#233;ppen ki lehet sz&#225;molni, a legegyszer&#369;bb sz&#225;m&#237;t&#225;s tal&#225;n a <em>Mean Squared Error</em>, (&#225;tlagos n&#233;gyzetes hiba). Itt minden pontn&#225;l kisz&#225;m&#237;tjuk, mennyivel t&#233;r el a f&#252;ggv&#233;ny &#225;ltal tal&#225;lt &#233;rt&#233;kt&#337;l, majd a az elt&#233;r&#233;sek n&#233;gyzet&#233;t &#225;tlagoljuk (a n&#233;gyzet miatt nem kell t&#246;r&#337;dni a plusz-minusz elt&#233;r&#233;sekkel, illetve az extr&#233;m hib&#225;k jobban sz&#225;m&#237;tanak).</p>
+<p><img src="https://tempflip.github.io/img/bl2_2.png" alt="bl2_1"></p>
 <h1 id="line-ris-regresszi-python-nal">Line&#225;ris regresszi&#243; python-nal</h1>
 <p>El&#337;sz&#246;r is sz&#252;ks&#233;g&#252;nk lesz egy modellre. A modellnek k&#233;t dolgot mindenk&#233;ppen tudnia kell: tanulni &#233;s el&#337;rejelezni.</p>
 <pre><code>class Linear_Model(Model):
@@ -73,7 +82,7 @@ regr.train(norm[col], norm[&#39;MEDV&#39;])
 predictions[col] = [regr.predict(x) for x in norm[col].values]
 print &quot;MSE for {}: {}&quot;.format(col, mean_squared_error(norm[&#39;MEDV&#39;], predictions[col]))
 </code></pre><p>A figyelmes olvas&#243; &#233;szreveheti, hogy val&#243;j&#225;ban semmi &quot;&#233;rtelmeset&quot; nem csin&#225;ltunk a fenti sorokban, hiszen azokkal az &#233;rt&#233;kekkel futattuk az el&#337;rejelz&#233;st, amelyekkel tan&#237;tottuk a modellt. &#205;gy azonban az utols&#243; sorban &#246;ssze tudjuk hasonl&#237;tani a val&#243;di &#233;rt&#233;keket az el&#337;rejelz&#233;sekkel, vagyis inform&#225;ci&#243;t kaphatunk a modell &quot;j&#243;s&#225;g&#225;r&#243;l&quot;. A lenti grafikonon a k&#233;k pontok a val&#243;di &#233;rt&#233;kek, m&#237;g a piros az line&#225;ris regresszival k&#233;sz&#237;tett el&#337;rejelz&#233;s <em>ugyanezekre</em> az &#233;rtk&#233;kekre. Az MSE &#233;rt&#233;ke enn&#233;l a vonaln&#225;l 0.0354, ami nem t&#250;l meggy&#337;z&#337;. Ez k&#233;pen &#233;s l&#225;that&#243;, hiszen a vonal illeszked&#233;se nem t&#250;l j&#243;.</p>
-<p>img3</p>
+<p><img src="https://tempflip.github.io/img/bl2_3.png" alt="bl2_1"></p>
 <p>A k&#246;vetkez&#337; postban azzal foglalkozok, hogyan lehet jobb illeszked&#233;st el&#233;rni.</p>
 
 	</div>

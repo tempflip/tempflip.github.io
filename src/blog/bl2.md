@@ -26,7 +26,7 @@ Első projektemet a a sztenderdnek mondható adatszettel csinálom - a [Boston H
 
 Azt feltételezem, hogy egy adott ingatlan néhány (vagy akár az összes) tulajdonságát ismerve viszonylag jó pontossággal előrejelezhető annak az ára. Az elsőre nem tűnik butaságnak, hiszen egy lakás árát jellemzően olyan tényezők befolyásolják, mint a bűnözés mértéke az adott kerületben, vagy éppen a város központjának közelsége.
 
-(bl2_1)
+![bl2_1](https://tempflip.github.io/img/bl2_1.png)
 
 Egy plotot nyomtatva a bűnözés (CRIM, x tengely) és a lakásárak (MEDV, x tengely) összefüggéséről, látható, hogy valóban van _valamiféle_ összefüggés. Ha ismernénk azt a függvényt, aminek megaddva változónak a bűnözés mértékét megkapnánk a hozzá tartozó pontot a fent rajzolt vonalon, akkor meg is lenne a _betanított gépi tanulás modellünk_.
 
@@ -53,6 +53,8 @@ Egy egyenest így lehet leírni:
 ## A hiba
 
 A kapott egyenes természetesen nem fog tökéletesen illeszkedni a pontjainkra (legalábbis nem valószínű), ezért bizonyos hibával számolni kell. A hiba mértékét többféleképpen ki lehet számolni, a legegyszerűbb számítás talán a _Mean Squared Error_, (átlagos négyzetes hiba). Itt minden pontnál kiszámítjuk, mennyivel tér el a függvény által talált értéktől, majd a az eltérések négyzetét átlagoljuk (a négyzet miatt nem kell törődni a plusz-minusz eltérésekkel, illetve az extrém hibák jobban számítanak).
+
+![bl2_1](https://tempflip.github.io/img/bl2_2.png)
 
 
 # Lineáris regresszió python-nal
@@ -91,7 +93,8 @@ print "MSE for {}: {}".format(col, mean_squared_error(norm['MEDV'], predictions[
 
 A figyelmes olvasó észreveheti, hogy valójában semmi "értelmeset" nem csináltunk a fenti sorokban, hiszen azokkal az értékekkel futattuk az előrejelzést, amelyekkel tanítottuk a modellt. Így azonban az utolsó sorban össze tudjuk hasonlítani a valódi értékeket az előrejelzésekkel, vagyis információt kaphatunk a modell "jóságáról". A lenti grafikonon a kék pontok a valódi értékek, míg a piros az lineáris regresszival készített előrejelzés _ugyanezekre_ az értkékekre. Az MSE értéke ennél a vonalnál 0.0354, ami nem túl meggyőző. Ez képen és látható, hiszen a vonal illeszkedése nem túl jó.
 
-img3
+![bl2_1](https://tempflip.github.io/img/bl2_3.png)
+
 
 
 A következő postban azzal foglalkozok, hogyan lehet jobb illeszkedést elérni.

@@ -15,7 +15,8 @@ metalsmith(__dirname)
 	.use(collections({
 		posts : {
 			pattern : 'blog/*.md',
-			sortBy : 'date'
+			sortBy : 'date',
+			reverse : true
 		}
 	}))
 
