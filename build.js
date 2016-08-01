@@ -3,6 +3,7 @@ var markdown = require('metalsmith-markdown');
 var templates  = require('metalsmith-templates');
 var collections = require('metalsmith-collections');
 var permalinks  = require('metalsmith-permalinks');
+var htmlescape = require('metalsmith-htmlescape');
 
 var plugin = function(files, metalsmith, done) {
     console.log(':))');
@@ -19,6 +20,7 @@ metalsmith(__dirname)
 	}))
 
 	.use(markdown())
+	.use(htmlescape())
 	.use(permalinks({
 		pattern : ':collections/:title'
 	}))

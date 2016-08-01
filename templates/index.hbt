@@ -1,5 +1,7 @@
+<!doctype html>
 <html>
 <head>
+	<meta charset="utf-8">
 
 	<title>{{ title }}</title>
 
@@ -22,7 +24,7 @@
 			{{#each collections.posts}}
 				<h3>{{ this.title}} -- {{ this.date }}</h3>
 				<article>
-					{{ this.lead }}
+					{{{ this.contents }}}
 					<br/>
 					<a href="{{ this.path }}/index.html">Read</a>
 				</article>
