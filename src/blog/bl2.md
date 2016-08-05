@@ -5,7 +5,7 @@ collections: blog
 date: 2016-07-31
 ---
 
-Első projektemet a a sztenderdnek mondható adatszettel csinálom - a [Boston Housing Data](https://archive.ics.uci.edu/ml/datasets/Housing) egy 78-as felmérés ötszáz bostoni lakás áráról, illetve egyéb tulajdonságairól, egész pontosan:
+Első projektemet egy sztenderdnek mondható adatszettel csinálom - a [Boston Housing Data](https://archive.ics.uci.edu/ml/datasets/Housing) egy 78-as felmérés ötszáz bostoni lakás áráról, illetve egyéb tulajdonságairól, egész pontosan:
 
 ```
  1. CRIM per capita crime rate by town
