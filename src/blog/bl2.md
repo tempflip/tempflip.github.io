@@ -1,5 +1,5 @@
 ---
-title: Lakásárak és lineáris regresszió #1
+title: Lakásárak és lineáris regresszió 1.
 template: blog.hbt
 collections: blog
 date: 2016-07-31
@@ -30,7 +30,7 @@ Azt feltételezem, hogy egy adott ingatlan néhány (vagy akár az összes) tula
 
 Egy plotot nyomtatva a bűnözés (CRIM, x tengely) és a lakásárak (MEDV, x tengely) összefüggéséről, látható, hogy valóban van _valamiféle_ összefüggés. Ha ismernénk azt a függvényt, aminek megaddva változónak a bűnözés mértékét megkapnánk a hozzá tartozó pontot a fent rajzolt vonalon, akkor meg is lenne a _betanított gépi tanulás modellünk_.
 
-# Tanítás
+### Tanítás
 
 Ez egy klasszikus [felügyelt tanulási probléma] (https://en.wikipedia.org/wiki/Supervised_learning)
 * Rendelkezésre állnak a bemeneti adatok (a bűnözés mértéke)
@@ -38,11 +38,11 @@ Ez egy klasszikus [felügyelt tanulási probléma] (https://en.wikipedia.org/wik
 * Egy függvényt szeretnénk, ami a bemenetet az kimenetté alakítja
 * Abban reménykedünk, hogy az így készített modell a kellőképpen általános lesz, tehát alkalmazható eddig ismeretlen adatokra is
 
-## Tanulási algoritmus
+### Tanulási algoritmus
 
 Tanulási algoritmusként a lineáris regressziót foglyuk használni. Semmi mást nem csinál, mint megtalálja azt az egyenest, ami a legjobban illeszkedik a tanulási pontjainkra, majd új bemeneti értékekre is kiszámolja az egyenes megfelelő pontjait. (Ez nem feltétlenül a legjobb választás, de egyszerűsége miatt most kiválóan megfelel).
 
-## Az egyenes
+### Az egyenes
 
 Egy egyenest így lehet leírni:
 
@@ -50,7 +50,7 @@ Egy egyenest így lehet leírni:
 
 `a` a tengelytől való távolság, míg `b` az egyenes dőlése. Amikor egy tanuló algoritmusnak (például a lineáris regressziónak) megadjuk a tanuló-pontokat, akkor a számítógép addig tologatja az `a` és `b` pontokat, amíg a hiba mértéke a lehető legkisebb lesz.
 
-## A hiba
+### A hiba
 
 A kapott egyenes természetesen nem fog tökéletesen illeszkedni a pontjainkra (legalábbis nem valószínű), ezért bizonyos hibával számolni kell. A hiba mértékét többféleképpen ki lehet számolni, a legegyszerűbb számítás talán a _Mean Squared Error_, (átlagos négyzetes hiba). Itt minden pontnál kiszámítjuk, mennyivel tér el a függvény által talált értéktől, majd a az eltérések négyzetét átlagoljuk (a négyzet miatt nem kell törődni a plusz-minusz eltérésekkel, illetve az extrém hibák jobban számítanak).
 

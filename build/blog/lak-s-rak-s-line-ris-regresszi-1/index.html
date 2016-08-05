@@ -13,7 +13,7 @@
 
 	<meta charset="utf-8">
 	
-	<title>Hobbi Gépi Tanulás: Lakásárak és lineáris regresszió</title>
+	<title>Hobbi Gépi Tanulás: Lakásárak és lineáris regresszió 1.</title>
 
 	<style>
 		div {
@@ -22,7 +22,7 @@
 </head>
 <body>
 	<div>
-		<p>Els&#337; projektemet a a sztenderdnek mondhat&#243; adatszettel csin&#225;lom - a <a href="https://archive.ics.uci.edu/ml/datasets/Housing">Boston Housing Data</a> egy 78-as felm&#233;r&#233;s &#246;tsz&#225;z bostoni lak&#225;s &#225;r&#225;r&#243;l, illetve egy&#233;b tulajdons&#225;gair&#243;l, eg&#233;sz pontosan:</p>
+		<p>Els&#337; projektemet egy sztenderdnek mondhat&#243; adatszettel csin&#225;lom - a <a href="https://archive.ics.uci.edu/ml/datasets/Housing">Boston Housing Data</a> egy 78-as felm&#233;r&#233;s &#246;tsz&#225;z bostoni lak&#225;s &#225;r&#225;r&#243;l, illetve egy&#233;b tulajdons&#225;gair&#243;l, eg&#233;sz pontosan:</p>
 <pre><code> 1. CRIM per capita crime rate by town
  2. ZN proportion of residential land zoned for lots over 25,000 sq.ft.
  3. INDUS proportion of non-retail business acres per town
@@ -40,7 +40,7 @@
 </code></pre><p>Azt felt&#233;telezem, hogy egy adott ingatlan n&#233;h&#225;ny (vagy ak&#225;r az &#246;sszes) tulajdons&#225;g&#225;t ismerve viszonylag j&#243; pontoss&#225;ggal el&#337;rejelezhet&#337; annak az &#225;ra. Az els&#337;re nem t&#369;nik butas&#225;gnak, hiszen egy lak&#225;s &#225;r&#225;t jellemz&#337;en olyan t&#233;nyez&#337;k befoly&#225;solj&#225;k, mint a b&#369;n&#246;z&#233;s m&#233;rt&#233;ke az adott ker&#252;letben, vagy &#233;ppen a v&#225;ros k&#246;zpontj&#225;nak k&#246;zels&#233;ge.</p>
 <p><img src="https://tempflip.github.io/img/bl2_1.png" alt="bl2_1"></p>
 <p>Egy plotot nyomtatva a b&#369;n&#246;z&#233;s (CRIM, x tengely) &#233;s a lak&#225;s&#225;rak (MEDV, x tengely) &#246;sszef&#252;gg&#233;s&#233;r&#337;l, l&#225;that&#243;, hogy val&#243;ban van <em>valamif&#233;le</em> &#246;sszef&#252;gg&#233;s. Ha ismern&#233;nk azt a f&#252;ggv&#233;nyt, aminek megaddva v&#225;ltoz&#243;nak a b&#369;n&#246;z&#233;s m&#233;rt&#233;k&#233;t megkapn&#225;nk a hozz&#225; tartoz&#243; pontot a fent rajzolt vonalon, akkor meg is lenne a <em>betan&#237;tott g&#233;pi tanul&#225;s modell&#252;nk</em>.</p>
-<h1 id="tan-t-s">Tan&#237;t&#225;s</h1>
+<h3 id="tan-t-s">Tan&#237;t&#225;s</h3>
 <p>Ez egy klasszikus [fel&#252;gyelt tanul&#225;si probl&#233;ma] (<a href="https://en.wikipedia.org/wiki/Supervised_learning">https://en.wikipedia.org/wiki/Supervised_learning</a>)</p>
 <ul>
 <li>Rendelkez&#233;sre &#225;llnak a bemeneti adatok (a b&#369;n&#246;z&#233;s m&#233;rt&#233;ke)</li>
@@ -48,13 +48,13 @@
 <li>Egy f&#252;ggv&#233;nyt szeretn&#233;nk, ami a bemenetet az kimenett&#233; alak&#237;tja</li>
 <li>Abban rem&#233;nyked&#252;nk, hogy az &#237;gy k&#233;sz&#237;tett modell a kell&#337;k&#233;ppen &#225;ltal&#225;nos lesz, teh&#225;t alkalmazhat&#243; eddig ismeretlen adatokra is</li>
 </ul>
-<h2 id="tanul-si-algoritmus">Tanul&#225;si algoritmus</h2>
+<h3 id="tanul-si-algoritmus">Tanul&#225;si algoritmus</h3>
 <p>Tanul&#225;si algoritmusk&#233;nt a line&#225;ris regresszi&#243;t foglyuk haszn&#225;lni. Semmi m&#225;st nem csin&#225;l, mint megtal&#225;lja azt az egyenest, ami a legjobban illeszkedik a tanul&#225;si pontjainkra, majd &#250;j bemeneti &#233;rt&#233;kekre is kisz&#225;molja az egyenes megfelel&#337; pontjait. (Ez nem felt&#233;tlen&#252;l a legjobb v&#225;laszt&#225;s, de egyszer&#369;s&#233;ge miatt most kiv&#225;l&#243;an megfelel).</p>
-<h2 id="az-egyenes">Az egyenes</h2>
+<h3 id="az-egyenes">Az egyenes</h3>
 <p>Egy egyenest &#237;gy lehet le&#237;rni:</p>
 <p><code>a + bx</code></p>
 <p><code>a</code> a tengelyt&#337;l val&#243; t&#225;vols&#225;g, m&#237;g <code>b</code> az egyenes d&#337;l&#233;se. Amikor egy tanul&#243; algoritmusnak (p&#233;ld&#225;ul a line&#225;ris regresszi&#243;nak) megadjuk a tanul&#243;-pontokat, akkor a sz&#225;m&#237;t&#243;g&#233;p addig tologatja az <code>a</code> &#233;s <code>b</code> pontokat, am&#237;g a hiba m&#233;rt&#233;ke a lehet&#337; legkisebb lesz.</p>
-<h2 id="a-hiba">A hiba</h2>
+<h3 id="a-hiba">A hiba</h3>
 <p>A kapott egyenes term&#233;szetesen nem fog t&#246;k&#233;letesen illeszkedni a pontjainkra (legal&#225;bbis nem val&#243;sz&#237;n&#369;), ez&#233;rt bizonyos hib&#225;val sz&#225;molni kell. A hiba m&#233;rt&#233;k&#233;t t&#246;bbf&#233;lek&#233;ppen ki lehet sz&#225;molni, a legegyszer&#369;bb sz&#225;m&#237;t&#225;s tal&#225;n a <em>Mean Squared Error</em>, (&#225;tlagos n&#233;gyzetes hiba). Itt minden pontn&#225;l kisz&#225;m&#237;tjuk, mennyivel t&#233;r el a f&#252;ggv&#233;ny &#225;ltal tal&#225;lt &#233;rt&#233;kt&#337;l, majd a az elt&#233;r&#233;sek n&#233;gyzet&#233;t &#225;tlagoljuk (a n&#233;gyzet miatt nem kell t&#246;r&#337;dni a plusz-minusz elt&#233;r&#233;sekkel, illetve az extr&#233;m hib&#225;k jobban sz&#225;m&#237;tanak).</p>
 <p><img src="https://tempflip.github.io/img/bl2_2.png" alt="bl2_1"></p>
 <h1 id="line-ris-regresszi-python-nal">Line&#225;ris regresszi&#243; python-nal</h1>

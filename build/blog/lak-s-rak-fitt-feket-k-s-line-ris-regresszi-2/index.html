@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<meta charset="utf-8">
+	
+	<title>Hobbi Gépi Tanulás: Lakásárak, fitt feketék és lineáris regresszió 2.</title>
+
+	<style>
+		div {
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<p>A szimpla line&#225;ris regresszi&#243; ugyan id&#337;k&#233;nt megfelel&#337; model lehet, &#225;m gyakran f&#233;lre is vezet.</p>
+<p>Az legfontosabb, hogy mindig feltegy&#252;k a k&#233;rd&#233;st -- van-e <em>&#233;rtelme</em> a model&#252;nknek, vagy csak csak r&#225;eresztett&#252;nk az adatainkra egy one-size-fits-all algoritmust &#233;s b&#252;szk&#233;n t&#225;laljuk az eredm&#233;nyeinket.</p>
+<p>Jordan Ellenberg a <a href="https://www.amazon.com/How-Not-Be-Wrong-Mathematical/dp/0143127535">Power Of Mathematical Thining</a> c.  k&#246;nyv&#233;ben egy sz&#243;rakoztat&#243; p&#233;ld&#225;t hoz: egy kilencvenes &#233;vekben publik&#225;lt cikk szerint 2048-ra az &#246;sszes amerikai t&#250;ls&#250;lyos lesz. Mi&#233;rt? Mert a hetvenes &#233;vek &#243;ta 60 sz&#225;zel&#233;kkal n&#337;tt a t&#250;ls&#250;lyos emberek sz&#225;ma, teh&#225;t ezt az adatsort interpol&#225;lva a j&#246;v&#337;be 2048-ra &#233;ri el az f&#252;ggv&#233;ny a 100%-ot.</p>
+<p>Hmm, de van itt egy-k&#233;t gond. P&#233;ld&#225;ul, mi lesz 2048 ut&#225;n? 2070-re m&#225;r az amerikaiak 120%-a lesz t&#250;ls&#250;lyos..? Ezen k&#237;v&#252;l, a cikk egy&#233;b &#233;rdekes&#233;gekkel is szolg&#225;l: a t&#250;ls&#250;lyoss&#225;g a fekete lakoss&#225;g k&#246;r&#233;ben kev&#233;sbb&#233; gyorsan n&#246;vekszik. Teh&#225;t, mire az amerikaiak 100% t&#250;ls&#250;lyos lesz, a feket&#233;k k&#246;zt lesznek m&#233;g j&#243;l kin&#233;z&#337; f&#233;rfiak &#233;s n&#337;k is. De h&#225;t hogy lehet ez? A teljes lakoss&#225;gba nem tartoznak bele a fitt feket&#233;k..? Vagy eddig &#337;k tal&#225;n valahol elb&#250;jtak..?</p>
+<p>Ennek &#237;gy term&#233;szetesen nincs &#233;rtelme -- Jordan &#233;rvel&#233;se pont azt mutatja meg, hogy vakon b&#237;zni a line&#225;ris regresszi&#243;ban &#233;s nem n&#233;zni ut&#225;na, mit is mondunk pontosan: rossz &#246;tlet.</p>
+<p>A kulcs term&#233;szetesen az, hogy a vonal, ami bemutatja az id&#337; &#233;s az elh&#237;z&#225;s m&#233;rt&#233;k&#233;t, nem egyenes, hanem egy g&#246;rbe. Val&#243;sz&#237;n&#369;leg ahogy az id&#337; telik, egyre ink&#225;bb kiegyenesedik, &#233;s hossz&#250; t&#225;von v&#237;zszintess&#233; v&#225;lik. Ezzel megold&#243;dik a fekete-nem fekete lakoss&#225;g &quot;paradox&quot; is: a fekete lakoss&#225;g elh&#237;z&#225;s&#225;t le&#237;r&#243; g&#246;rbe egy kicsit k&#233;s&#337;bb &#233;ri el a hasonl&#243; egyenest.</p>
+<h3 id="lak-s-rak-s-nem-egyenes-vonalak">Lak&#225;s&#225;rak &#233;s nem-egyenes vonalak</h3>
+<p>Az bostoni lak&#225;s&#225;rakat le&#237;r&#243; adatsoron (l. az el&#337;z&#337; postban) gyakran megfigyelhet&#337;, hogy a pontok gyakran valamelyik oldalra rendez&#337;dnek, esetleg fent kezd&#337;dnek, azt&#225;n pedig meredeken zuhannak &#233;s hosszan elh&#250;z&#243;dnak; egysz&#243;val nem egy egyenes k&#246;r&#252;l helyezkednek el.</p>
+<p>Szerencs&#233;re ezeket az egyenesekt is le tudjuk &#237;rni viszonylag egyszer&#369; f&#252;ggv&#233;nyekkel, az &#250;n. polinominalis kifejez&#233;sekkel. Ezek olyan f&#252;ggv&#233;nyek, amelyek az X param&#233;tert N-fokig tartalmazz&#225;k.</p>
+<p>Pl.</p>
+<p>1st: a + bx</p>
+<p>2nd: a + bx + cx^2</p>
+<p>3rd: a + bx + cx^2 + dx^3</p>
+<p>.</p>
+<p>.</p>
+<p><img src="https://tempflip.github.io/img/bl3_1.png" alt="bl2_1">
+<a href="https://www.mathsisfun.com/algebra/polynomials-solving.html">forras</a></p>
+<p>Ha ezeket lerajzoljuk, akkor g&#246;rb&#233;ket kapunk, jellemz&#337;en N-darab g&#246;rb&#252;lettel. Ezek a f&#252;ggv&#233;nyek &#225;ltal&#225;ban jobban r&#225; tudnak illeszkedni egy-egy adatsorra.</p>
+<p>Ha kisz&#225;moljuk az bostoni lak&#225;sok &#246;sszes adataira, melyik f&#252;ggv&#233;ny illeszkedik a legjobban (vagyis, melyik produk&#225;lja a legkisebb MSE-hib&#225;t), a k&#246;vetkez&#337; t&#225;bl&#225;zatot kapjuk. (6-fogik mentem el).</p>
+<pre><code>       CRIM        ZN     INDUS      CHAS       NOX        RM       AGE  \
+0  0.035483  0.036272  0.031934  0.040408  0.034076  0.021531  0.035765   
+1  0.033070  0.035910  0.030486  0.040408  0.033888  0.018826  0.035234   
+2  0.032754  0.034813  0.030148  0.040408  0.033607  0.018292  0.035161   
+3  0.032698  0.034802  0.030062  0.040408  0.033513  0.017802  0.035061   
+4  0.032698  0.034783  0.030050  0.040408  0.033479  0.017077  0.035046   
+5  0.032689  0.034684  0.029871  0.040408  0.032827  0.017069  0.035045   
+
+        DIS       RAD       TAX   PTRATIO         B     LSTAT          MEDV  
+0  0.039085  0.035617  0.032537  0.030939  0.037053  0.019004  2.390195e-32  
+1  0.037706  0.035167  0.032318  0.030782  0.036971  0.014978  4.836685e-32  
+2  0.037310  0.034323  0.032263  0.030564  0.036955  0.014264  2.926572e-32  
+3  0.037309  0.034058  0.032252  0.029271  0.036706  0.013632  5.659858e-32  
+4  0.037277  0.033963  0.032246  0.028867  0.035738  0.013270  2.459148e-32  
+5  0.036648  0.033678  0.031566  0.028311  0.035016  0.013229  2.848047e-32
+</code></pre><p>P&#233;ld&#225;ul eg&#233;sz j&#243;l &#237;rja le az &#225;rakat az RM sor (&#225;tlagos szobasz&#225;m per lak&#225;s), az LSTAT sem rossz (h&#225;tr&#225;nyos helyzet&#337; lakoss&#225;g ar&#225;nya -- ez val&#243;sz&#237;n&#369;leg egy ford&#237;tott ar&#225;nyoss&#225;g, vagyis ahol sok a szeg&#233;ny ember, ott olcs&#243; az ingatlan). Megfigyelhet&#337;, hogy a magasabb fok&#250; f&#252;ggv&#233;nyek jobban illeszkednek; de az&#233;rt jellemz&#337;en el&#233;g gyorsan v&#233;get &#233;r ez a l&#225;tv&#225;nyos javul&#225;s, ahogy megy&#252;nk feljebb -- a m&#225;sodik vagy harmadik fok&#250; f&#252;ggv&#233;ny ut&#225;n jellemz&#337;n m&#225;r csak minim&#225;lis javul&#225;s l&#225;that&#243;, vagyis ezek szerint jellemz&#337;en &quot;szimpla&quot; g&#246;rb&#233;kkel lehet a legjobban le&#237;rni ezeket az adatsorokat.</p>
+<p>(&#201;rdekess&#233;kk&#233;ppen hagytam meg k&#233;t adatsort -- a MEDV a lak&#225;sok &#225;ra, vagyis az Y v&#225;ltoz&#243;. Mint l&#225;that&#243; is, gyakorlatilag nulla MSE-ket produk&#225;lt -- aminek &#237;gy is kell lennie, hiszen itt 1-1 megfelel&#233;s van. Az CHAS, ami egy &quot;dummy&quot;, vagyis teljesen v&#233;letlenszer&#369; &#233;rt&#233;k, m&#233;g &#233;rdekesebb. Ahogy feljebb megy&#252;nk a f&#252;ggv&#233;nyek fokaival, semmif&#233;le v&#225;ltoz&#225;s nem l&#225;that&#243; az hib&#225;ban, vagyis ez val&#243;ban egy TELJESEN v&#233;letlenszer&#369; &#233;rt&#233;k. Ezen k&#237;v&#252;l az is &#233;rdekes, hogy a 0.04 MSE nem t&#369;nik t&#250;l extr&#233;mnek a t&#246;bbi adathoz k&#233;pest, vagyis ak&#225;r azzal tudn&#225;nk &#233;rvelni, hogy ez az &#233;rt&#233;k &#246;sszef&#252;gg&#233;sben van a lak&#225;sok &#225;r&#225;val. Szerencs&#233;re mi elolvastuk az adatsorunk le&#237;r&#225;s&#225;t, &#237;gy tudjuk, hogy NINCS).</p>
+
+	</div>
+</body>
+</html>
