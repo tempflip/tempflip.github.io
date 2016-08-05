@@ -2,7 +2,7 @@
 title: Lakásárak, fitt feketék és lineáris regresszió 2.
 template: blog.hbt
 collections: blog
-date: 2016-07-31
+date: 2016-08-05
 ---
 
 A szimpla lineáris regresszió ugyan időként megfelelő model lehet, ám gyakran félre is vezet.
