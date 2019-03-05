@@ -1,98 +1,26 @@
 <html>
+<head>
+	<title>Peter Tempfli</title>
+
+	<style>
+		body {
+			background : #80d86a
+		}
+
+		.main {
+			text-align: center
+		}
+	</style>
+</head>
 
 <body>
+	<div class="main">
+	<h1>Coming soon!</h1>
 
-	<div>
-		<div id="time_tick"></div>
+	<img src="https://pbs.twimg.com/media/DOEbI7RWAAAe9q4.png"/>
+	<p/>
 
-		<input id="session_name" placeholder="session_name" style="font-size: 36pt;">
-		<br/>
-		<button id="start" style="font-size: 36pt;">Start recording</button>
+	<a href="https://medium.com/@tempflip">My articles on Medium</a>
 	</div>
-
-
-	<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
-	<script>
-	  // Initialize Firebase
-	  var config = {
-	    apiKey: "AIzaSyDID3PVprxGBMFStEYgMwOgDlY5ubN5fNc",
-	    authDomain: "geo1-7e6b6.firebaseapp.com",
-	    databaseURL: "https://geo1-7e6b6.firebaseio.com",
-	    projectId: "geo1-7e6b6",
-	    storageBucket: "geo1-7e6b6.appspot.com",
-	    messagingSenderId: "263774315428"
-	  };
-	  firebase.initializeApp(config);
-	</script>
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script type="text/javascript">
-
-		var AX;
-		var AY;
-		var AZ;
-
-		var lastTimeStamp = 0;
-		function start() {
-			var db = firebase.database();
-			var session_name = $('#session_name').val();
-
-
-			if (window.DeviceMotionEvent) {
-			    window.addEventListener('devicemotion', function(eventData) {   
-			        // Acceleration
-			       	AX = eventData.acceleration.x;
-			       	AY = eventData.acceleration.y;
-			       	AZ = eventData.acceleration.z;
-			    }, false);
-			}
-			
-		    if (navigator.geolocation) {
-		    	window.setInterval(function() {
-		        	navigator.geolocation.getCurrentPosition(function(x) {
-		        		locCallback(x, db, session_name);
-		        	});
-		    	}, 500);
-		    } else {
-		        console.log(':(')
-		    }
-		    
-		}
-
-		function locCallback(x, db, session_name) {
-
-			if (x.timestamp == lastTimeStamp) return;
-
-			lastTimeStamp = x.timestamp;
-			db_key = '/' + session_name + '/' + x.timestamp;
-
-			var d = {
-				timestamp : x.timestamp,
-				lat : x.coords.latitude,
-				long : x.coords.longitude,
-				acc : x.coords.accuracy,
-				ax : AX || 0,
-				ay : AY || 0,
-				az : AZ || 0,
-			};
-			console.log(d);
-
-			db.ref(db_key).set(d);
-
-			$('#time_tick').text(new Date().getSeconds());
-
-		}
-
-		$(document).ready(function() {
-			$('#start').click(start);
-		});
-
-
-
-	</script>
-
 </body>
-
-
-
 </html>
