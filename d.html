@@ -23,7 +23,7 @@
         }
         
         let handleMotion = (ev) => {
-            record(ev, ['acceleration', 'accelerationIncludingGravity', 'rotationRate', 'interval', 'timeStamp'])
+            record(ev.acceleration, ['acceleration', 'accelerationIncludingGravity', 'rotationRate', 'interval', 'timeStamp'])
         }
 
         let main = () => {
