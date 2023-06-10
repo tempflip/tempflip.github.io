@@ -15,7 +15,7 @@
             let r = props.reduce((a, prop) => {a[prop] = ev[prop]; return a}, {});
             r['t'] = Date.now();
             console.log(r);
-            print(JSON.stringify(r));
+            print(JSON.stringify(ev));
         }
 
         let handleOrientation = (ev) => {
@@ -29,7 +29,7 @@
         let main = () => {
             
             window.addEventListener("devicemotion", handleMotion);
-            window.addEventListener("deviceorientation", handleOrientation);
+            //window.addEventListener("deviceorientation", handleOrientation);
         }
 
         main();
