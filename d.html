@@ -1,13 +1,16 @@
 <html>
   <body>
     <h1>1</h1>
+
+    <div class="cons">x</div>
+
     <a href="demo.html">xxxxxxxxxxx</a>
-    <div class="cons"></div>
 
     <script>
 
 
         let print = (s) => {
+            console.log('####',s);
             document.querySelector(".cons").innerHTML = document.querySelector(".cons").innerHTML + '<br\>' + s;
         };
 
@@ -21,13 +24,13 @@
                 }, {});
             r['what'] = what;
             r['t'] = Date.now();
-            console.log(r);
-            print(what + ':' + JSON.stringify(ev));
+            //console.log(r);
+            print(what + ' :: ' + JSON.stringify(r));
         }
 
-        updateFieldIfNotNull = (what, v) => {
-            if (v) print(what  + ' ... ' + v);
-        }
+        //updateFieldIfNotNull = (what, v) => {
+          //  if (v) print(what  + ' ... ' + v);
+        //}
 
         let handleOrientation = (ev) => {
             record('orientation', ev, ['alpha', 'beta', 'gamma', 'timeStamp'])
