@@ -11,44 +11,35 @@
             document.querySelector(".cons").innerHTML = document.querySelector(".cons").innerHTML + '<br\>' + s;
         };
 
-        let record = (ev, props) => {
-            let r = props.reduce((a, prop) => {a[prop] = ev[prop]; return a}, {});
+        let record = (what, ev, props) => {
+            //console.log(ev);
+            let r = props.reduce((a, prop) => {
+                    if (ev[prop]) {
+                        a[prop] = ev[prop]; 
+                    };
+                    return a;
+                }, {});
+            r['what'] = what;
             r['t'] = Date.now();
             console.log(r);
-            //print(JSON.stringify(ev));
+            print(what + ':' + JSON.stringify(ev));
         }
 
-        let updateFieldIfNotNull = (what, v) => {
+        updateFieldIfNotNull = (what, v) => {
             if (v) print(what  + ' ... ' + v);
         }
 
         let handleOrientation = (ev) => {
-            record(ev, ['alpha', 'beta', 'gamma', 'timeStamp'])
+            record('orientation', ev, ['alpha', 'beta', 'gamma', 'timeStamp'])
         }
         
         let handleMotion = (ev) => {
-            updateFieldIfNotNull('Accelerometer_gx', event.accelerationIncludingGravity.x);
-            updateFieldIfNotNull('Accelerometer_gy', event.accelerationIncludingGravity.y);
-            updateFieldIfNotNull('Accelerometer_gz', event.accelerationIncludingGravity.z);
-        
-            updateFieldIfNotNull('Accelerometer_x', event.acceleration.x);
-            updateFieldIfNotNull('Accelerometer_y', event.acceleration.y);
-            updateFieldIfNotNull('Accelerometer_z', event.acceleration.z);
-        
-            updateFieldIfNotNull('Accelerometer_i', event.interval, 2);
-        
-            updateFieldIfNotNull('Gyroscope_z', event.rotationRate.alpha);
-            updateFieldIfNotNull('Gyroscope_x', event.rotationRate.beta);
-            updateFieldIfNotNull('Gyroscope_y', event.rotationRate.gamma);
-            incrementEventCount();
-        
-            //record(ev.acceleration, ['acceleration', 'accelerationIncludingGravity', 'rotationRate', 'interval', 'timeStamp'])
+            record('motion', ev, ['accelerationIncludingGravity', 'acceleration', 'interval', 'rotationRate', 'timeStamp']);
         }
 
         let main = () => {
-            
             window.addEventListener("devicemotion", handleMotion);
-            //window.addEventListener("deviceorientation", handleOrientation);
+            window.addEventListener("deviceorientation", handleOrientation);
         }
 
         main();
