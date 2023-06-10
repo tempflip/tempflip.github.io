@@ -15,7 +15,11 @@
             let r = props.reduce((a, prop) => {a[prop] = ev[prop]; return a}, {});
             r['t'] = Date.now();
             console.log(r);
-            print(JSON.stringify(ev));
+            //print(JSON.stringify(ev));
+        }
+
+        let updateFieldIfNotNull = (what, v) => {
+            if (v) print(what  + ' ... ' + v);
         }
 
         let handleOrientation = (ev) => {
@@ -23,7 +27,22 @@
         }
         
         let handleMotion = (ev) => {
-            record(ev.acceleration, ['acceleration', 'accelerationIncludingGravity', 'rotationRate', 'interval', 'timeStamp'])
+            updateFieldIfNotNull('Accelerometer_gx', event.accelerationIncludingGravity.x);
+            updateFieldIfNotNull('Accelerometer_gy', event.accelerationIncludingGravity.y);
+            updateFieldIfNotNull('Accelerometer_gz', event.accelerationIncludingGravity.z);
+        
+            updateFieldIfNotNull('Accelerometer_x', event.acceleration.x);
+            updateFieldIfNotNull('Accelerometer_y', event.acceleration.y);
+            updateFieldIfNotNull('Accelerometer_z', event.acceleration.z);
+        
+            updateFieldIfNotNull('Accelerometer_i', event.interval, 2);
+        
+            updateFieldIfNotNull('Gyroscope_z', event.rotationRate.alpha);
+            updateFieldIfNotNull('Gyroscope_x', event.rotationRate.beta);
+            updateFieldIfNotNull('Gyroscope_y', event.rotationRate.gamma);
+            incrementEventCount();
+        
+            //record(ev.acceleration, ['acceleration', 'accelerationIncludingGravity', 'rotationRate', 'interval', 'timeStamp'])
         }
 
         let main = () => {
