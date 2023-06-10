@@ -1,0 +1,38 @@
+<html>
+  <body>
+    <h1>1</h1>
+    <a href="demo.html">xxxxxxxxxxx</a>
+    <div class="cons"></div>
+
+    <script>
+
+
+        let print = (s) => {
+            document.querySelector(".cons").innerHTML = document.querySelector(".cons").innerHTML + '<br\>' + s;
+        };
+
+        let record = (ev, props) => {
+            let r = props.reduce((a, prop) => {a[prop] = ev[prop]; return a}, {});
+            r['t'] = Date.now();
+            console.log(r);
+            print(JSON.stringify(r));
+        }
+
+        let handleOrientation = (ev) => {
+            record(ev, ['alpha', 'beta', 'gamma', 'timeStamp'])
+        }
+        
+        let handleMotion = (ev) => {
+            record(ev, ['acceleration', 'accelerationIncludingGravity', 'rotationRate', 'interval', 'timeStamp'])
+        }
+
+        let main = () => {
+            
+            window.addEventListener("devicemotion", handleMotion);
+            window.addEventListener("deviceorientation", handleOrientation);
+        }
+
+        main();
+    </script>
+  </body>
+</html>
