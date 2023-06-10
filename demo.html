@@ -96,6 +96,10 @@
     }
   }
 
+    let printX = (s) => {
+      document.querySelector(".cons").innerHTML = document.querySelector(".cons").innerHTML + '<br\>' + s;
+  };
+
   function handleMotion(event) {
     print('im working');
     updateFieldIfNotNull('Accelerometer_gx', event.accelerationIncludingGravity.x);
@@ -112,6 +116,7 @@
     updateFieldIfNotNull('Gyroscope_x', event.rotationRate.beta);
     updateFieldIfNotNull('Gyroscope_y', event.rotationRate.gamma);
     incrementEventCount();
+    printX(JSON.stringify(event));
   }
 
   let is_running = false;
