@@ -46,25 +46,29 @@
             print('motion' + ' :: ' + JSON.stringify(r));
             */
         //}
-        let updateFieldIfNotNull = (a,b) => {
-            if(b) print(a + '.....' + b);
+        let updateFieldIfNotNull = (r, a , b) => {
+            if(b) r[a] = b;
+            return r;
         }
         
         function handleMotion(event) {
-            print('im working');
-            updateFieldIfNotNull('Accelerometer_gx', event.accelerationIncludingGravity.x);
-            updateFieldIfNotNull('Accelerometer_gy', event.accelerationIncludingGravity.y);
-            updateFieldIfNotNull('Accelerometer_gz', event.accelerationIncludingGravity.z);
+            let r = {};
+
+            r = updateFieldIfNotNull(r, 'Accelerometer_gx', event.accelerationIncludingGravity.x);
+            r = updateFieldIfNotNull(r, 'Accelerometer_gy', event.accelerationIncludingGravity.y);
+            r = updateFieldIfNotNull(r, 'Accelerometer_gz', event.accelerationIncludingGravity.z);
         
-            updateFieldIfNotNull('Accelerometer_x', event.acceleration.x);
-            updateFieldIfNotNull('Accelerometer_y', event.acceleration.y);
-            updateFieldIfNotNull('Accelerometer_z', event.acceleration.z);
+            r = updateFieldIfNotNull(r, 'Accelerometer_x', event.acceleration.x);
+            r = updateFieldIfNotNull(r, 'Accelerometer_y', event.acceleration.y);
+            r = updateFieldIfNotNull(r, 'Accelerometer_z', event.acceleration.z);
         
-            updateFieldIfNotNull('Accelerometer_i', event.interval, 2);
+            r = updateFieldIfNotNull(r, 'Accelerometer_i', event.interval, 2);
         
-            updateFieldIfNotNull('Gyroscope_z', event.rotationRate.alpha);
-            updateFieldIfNotNull('Gyroscope_x', event.rotationRate.beta);
-            updateFieldIfNotNull('Gyroscope_y', event.rotationRate.gamma);
+            r = updateFieldIfNotNull(r, 'Gyroscope_z', event.rotationRate.alpha);
+            r = updateFieldIfNotNull(r, 'Gyroscope_x', event.rotationRate.beta);
+            r = updateFieldIfNotNull(r, 'Gyroscope_y', event.rotationRate.gamma);
+            print('mot' + ' :: ' + JSON.stringify(r));
+
         }        
 
         let main = () => {
