@@ -32,8 +32,8 @@
             //record('oriantation', ev, ['alpha', 'beta', 'gamma', 'timeStamp']);
         }
 
-        let handleMotion = (ev) => {
-            print('lll' + Object.keys(ev));
+        //let handleMotion = (ev) => {
+         //   print('lll' + Object.keys(ev));
             /*
             let r = {};
             if (event.accelerationIncludingGravity.x) {r.accgx = event.accelerationIncludingGravity.x};
@@ -45,7 +45,27 @@
             if (event.interval) {r.interval = interval};
             print('motion' + ' :: ' + JSON.stringify(r));
             */
+        //}
+        let updateFieldIfNotNull = (a,b) => {
+            if(b) print(a + '.....' + b);
         }
+        
+        function handleMotion(event) {
+            print('im working');
+            updateFieldIfNotNull('Accelerometer_gx', event.accelerationIncludingGravity.x);
+            updateFieldIfNotNull('Accelerometer_gy', event.accelerationIncludingGravity.y);
+            updateFieldIfNotNull('Accelerometer_gz', event.accelerationIncludingGravity.z);
+        
+            updateFieldIfNotNull('Accelerometer_x', event.acceleration.x);
+            updateFieldIfNotNull('Accelerometer_y', event.acceleration.y);
+            updateFieldIfNotNull('Accelerometer_z', event.acceleration.z);
+        
+            updateFieldIfNotNull('Accelerometer_i', event.interval, 2);
+        
+            updateFieldIfNotNull('Gyroscope_z', event.rotationRate.alpha);
+            updateFieldIfNotNull('Gyroscope_x', event.rotationRate.beta);
+            updateFieldIfNotNull('Gyroscope_y', event.rotationRate.gamma);
+        }        
 
         let main = () => {
             window.addEventListener("devicemotion", handleMotion);
