@@ -33,6 +33,8 @@
         }
 
         let handleMotion = (ev) => {
+            print('lll' + Object.keys(ev));
+            /*
             let r = {};
             if (event.accelerationIncludingGravity.x) {r.accgx = event.accelerationIncludingGravity.x};
             if (event.accelerationIncludingGravity.y) {r.accgy = event.accelerationIncludingGravity.y};
@@ -42,6 +44,7 @@
             if (event.acceleration.z) {r.accz = event.acceleration.z};
             if (event.interval) {r.interval = interval};
             print('motion' + ' :: ' + JSON.stringify(r));
+            */
         }
 
         let main = () => {
