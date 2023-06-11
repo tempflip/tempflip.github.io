@@ -49,8 +49,10 @@
                 body: formEncode(r)
             }).then(r => {
                 console.log('oh fetch!', r);
+                print('oh fetch!' + JSON.stringify(r));
             }).catch(err => {
                 console.log('oh fetch err!', err);
+                print('error!' + JSON.stringify(err));
             });
         }
 
@@ -94,7 +96,7 @@
         }        
 
         let main = () => {
-            window.addEventListener("devicemotion", handleMotion);
+            //window.addEventListener("devicemotion", handleMotion);
             window.addEventListener("deviceorientation", handleOrientation);
         }
 
