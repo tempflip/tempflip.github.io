@@ -19,6 +19,7 @@
             let r = props.reduce((a, prop) => {
                     if (ev[prop]) {
                         if (ev[prop].constructor == Object && Object.keys(ev[prop]).length == 0) return a; 
+                        print('prop' : prop, ev[prop]);
                         a[prop] = ev[prop]; 
                     };
                     return a;
