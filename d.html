@@ -29,9 +29,9 @@
             print(what + ' :: ' + JSON.stringify(r));
         }
 
-        let handleOrientation = (ev) => {
-            record('orientation', ev, ['alpha', 'beta', 'gamma', 'timeStamp'])
-        }
+        //let handleOrientation = (ev) => {
+        //    record('orientation', ev, ['alpha', 'beta', 'gamma', 'timeStamp'])
+        //}
         
         let handleMotion = (ev) => {
             record('motion', ev, ['accelerationIncludingGravity', 'acceleration', 'interval', 'rotationRate', 'timeStamp']);
