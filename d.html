@@ -26,10 +26,32 @@
             r['what'] = what;
             r['t'] = Date.now();
             print(what + ' :: ' + JSON.stringify(r));
+            return r;
         }
         
         let handleOrientation  = (ev) => {
-            record('oriantation', ev, ['alpha', 'beta', 'gamma', 'timeStamp']);
+            let r = record('oriantation', ev, ['alpha', 'beta', 'gamma', 'timeStamp']);
+            makeFetch(r);
+        }
+
+        let makeFetch = (r) => {
+
+            //const ENDPOINT = 'localhost';
+            const ENDPOINT = '192.168.1.69';
+
+            let formEncode = (d) => Object.keys(d).map(key => key + '=' + encodeURIComponent(d[key])).join('&');
+
+            fetch('http://' + ENDPOINT + ':3000', {
+                method : 'POST',
+                headers : {
+                    'Content-Type' : 'application/x-www-form-urlencoded'
+                },
+                body: formEncode(r)
+            }).then(r => {
+                console.log('oh fetch!', r);
+            }).catch(err => {
+                console.log('oh fetch err!', err);
+            });
         }
 
         //let handleMotion = (ev) => {
