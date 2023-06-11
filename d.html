@@ -11,13 +11,14 @@
 
         let print = (s) => {
             console.log('####',s);
-            document.querySelector(".cons").innerHTML = document.querySelector(".cons").innerHTML + '<br\>' + s;
+            document.querySelector(".cons").innerHTML =  s + '<br\>' + document.querySelector(".cons").innerHTML;
         };
 
         let record = (what, ev, props) => {
             //console.log(ev);
             let r = props.reduce((a, prop) => {
                     if (ev[prop]) {
+                        if (ev[prop].constructor == Object && Object.keys(ev[prop]).length == 0) return a; 
                         a[prop] = ev[prop]; 
                     };
                     return a;
@@ -27,10 +28,6 @@
             //console.log(r);
             print(what + ' :: ' + JSON.stringify(r));
         }
-
-        //updateFieldIfNotNull = (what, v) => {
-          //  if (v) print(what  + ' ... ' + v);
-        //}
 
         let handleOrientation = (ev) => {
             record('orientation', ev, ['alpha', 'beta', 'gamma', 'timeStamp'])
