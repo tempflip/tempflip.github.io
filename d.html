@@ -29,7 +29,7 @@
         }
         
         let handleOrientation  = (ev) => {
-            record('motion', ev, ['alpha', 'beta', 'gamma', 'timeStamp']);
+            //record('oriantation', ev, ['alpha', 'beta', 'gamma', 'timeStamp']);
         }
 
         let handleMotion = (ev) => {
@@ -41,7 +41,7 @@
             if (event.acceleration.y) {r.accy = event.acceleration.y};
             if (event.acceleration.z) {r.accz = event.acceleration.z};
             if (event.interval) {r.interval = interval};
-            print('orientation' + ' :: ' + JSON.stringify(r));
+            print('motion' + ' :: ' + JSON.stringify(r));
         }
 
         let main = () => {
