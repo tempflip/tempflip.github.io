@@ -15,32 +15,38 @@
         };
 
         let record = (what, ev, props) => {
-            //console.log(ev);
             let r = props.reduce((a, prop) => {
                     if (ev[prop]) {
                         if (ev[prop].constructor == Object && Object.keys(ev[prop]).length == 0) return a; 
                         a[prop] = ev[prop]; 
-                        print('prop: ' +  prop + ' '  + JSON.stringify(a[prop]));
+                        //print('prop: ' +  prop + ' '  + JSON.stringify(a[prop]));
                     };
                     return a;
                 }, {});
             r['what'] = what;
             r['t'] = Date.now();
-            //console.log(r);
             print(what + ' :: ' + JSON.stringify(r));
         }
         
-        let handleMotion = (ev) => {
-            record('motion', ev, ['accelerationIncludingGravity', 'acceleration', 'interval', 'rotationRate', 'timeStamp']);
+        let handleOrientation  = (ev) => {
+            record('motion', ev, ['alpha', 'beta', 'gamma', 'timeStamp']);
         }
 
-        let handleOrientation = (ev) => {
-            record('orientation', ev, ['alpha', 'beta', 'gamma', 'timeStamp']);
+        let handleMotion = (ev) => {
+            let r = {};
+            if (event.accelerationIncludingGravity.x) {r.accgx = event.accelerationIncludingGravity.x};
+            if (event.accelerationIncludingGravity.y) {r.accgy = event.accelerationIncludingGravity.y};
+            if (event.accelerationIncludingGravity.z) {r.accgz = event.accelerationIncludingGravity.z};
+            if (event.acceleration.x) {r.accx = event.acceleration.x};
+            if (event.acceleration.y) {r.accy = event.acceleration.y};
+            if (event.acceleration.z) {r.accz = event.acceleration.z};
+            if (event.interval) {r.interval = interval};
+            print('orientation' + ' :: ' + JSON.stringify(r));
         }
 
         let main = () => {
             window.addEventListener("devicemotion", handleMotion);
-            //window.addEventListener("deviceorientation", handleOrientation);
+            window.addEventListener("deviceorientation", handleOrientation);
         }
 
         main();
